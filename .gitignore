@@ -8,3 +8,7 @@ logs
 .gradle
 build
 generatedsources
+.classpath
+.project
+.settings/
+

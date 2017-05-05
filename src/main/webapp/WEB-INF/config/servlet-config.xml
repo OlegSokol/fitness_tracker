@@ -10,26 +10,11 @@
 
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.fitnesstracker.controller"/>
+    <context:component-scan base-package="com.fitnesstracker"/>
 
-    <mvc:interceptors>
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="language"/>
-    </mvc:interceptors>
-
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" p:defaultLocale="en"/>
-
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonMessageConverter"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-    </bean>
-
-    <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+    <!--Json resolver-->
+    <!--
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="order" value="1" />
         <property name="contentNegotiationManager">
             <bean class="org.springframework.web.accept.ContentNegotiationManager">
@@ -57,7 +42,18 @@
                     </constructor-arg>
                 </bean>
             </list>
-        </property> </bean>-->
+        </property>
+    </bean>
+    -->
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="language"/>
+    </mvc:interceptors>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
 
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource"
@@ -66,5 +62,7 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="WEB-INF/jsp/" p:suffix=".jsp" p:order="2"/>
+
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
 
 </beans>
