@@ -1,6 +1,8 @@
 package com.fitnesstracker.controller;
 
 import com.fitnesstracker.model.Goal;
+import com.fitnesstracker.service.GoalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,9 @@ import javax.validation.Valid;
 @Controller
 @SessionAttributes("goal")
 public class GoalController {
+
+    @Autowired
+    private GoalService service;
 
     @RequestMapping(value = "addGoal", method = RequestMethod.GET)
     public String addGaol(Model model) {
@@ -30,6 +35,8 @@ public class GoalController {
         System.out.println("Minutes updated: " + goal.getMinutes());
         if(result.hasErrors()) {
             return "addGoal";
+        } else {
+            service.save(goal);
         }
         return "redirect:addMinutes.html";
     }
