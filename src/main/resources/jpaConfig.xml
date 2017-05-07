@@ -17,9 +17,11 @@
 
     <context:component-scan base-package="com.fitnesstracker"/>
 
+    <jpa:repositories base-package="com.fitnesstracker.repository"/>
+
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-    <bean id="entityMangerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="punit"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
@@ -38,7 +40,7 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityMangerFactory"/>
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
     <tx:annotation-driven/>
