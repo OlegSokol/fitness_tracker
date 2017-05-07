@@ -1,13 +1,20 @@
 package com.fitnesstracker.service;
 
 import com.fitnesstracker.model.Activity;
+import com.fitnesstracker.model.Exercise;
+import com.fitnesstracker.repository.ExerciseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("exerciseService")
 public class ExerciseServiceImpl implements ExerciseService {
+
+	@Autowired
+	private ExerciseRepository repository;
 
 	@Override
 	public List<Activity> findAllActivities() {
@@ -28,5 +35,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 		
 		return activities;
 	}
-	
+
+	@Transactional
+	@Override
+	public Exercise save(Exercise exercise) {
+		return repository.save(exercise);
+	}
+
 }
